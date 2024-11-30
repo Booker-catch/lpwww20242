@@ -1,0 +1,23 @@
+/* Change header background and text color */
+.custom-modal-header {
+  background-color: #fbfbf3; /* Example blue color */
+  color: 333; /* White text */
+}
+
+/* Customize body background color */
+.custom-modal-body {
+  background-color: #fbfbf3; /* Light grayish-blue background */
+  color: #333; /* Darker text for contrast */
+}
+
+/* Customize footer background */
+.custom-modal-footer {
+  background-color: #75CE7F; /* Soft gray-blue */
+  color: #75CE7F;
+  border-top: 1px solid #000000; /* Optional: Add a border */
+}
+
+/* Optional: Customize modal title text */
+.custom-modal-header .modal-title {
+  font-weight: bold;
+}

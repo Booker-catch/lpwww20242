@@ -11,10 +11,10 @@ function App() {
       <div class="container text-center">
         <div class="row">
           <div class="col">
-            Column
+            Column2222
           </div>
           <div class="col h-screen">
-            Column
+            aaColumn
           </div>
           <div class="col">
             Column

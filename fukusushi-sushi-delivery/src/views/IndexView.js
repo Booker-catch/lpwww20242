@@ -6,7 +6,7 @@ function Index() {
         <div class="container text-center">
           <div class="row">
             <div class="col">
-              pico
+              Erm
             </div>
             <div class="col">
               Column
