@@ -5,11 +5,11 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 
 function Footer(){
     return(
-        <footer>
-            <Container className="footer-container border-t border-custom-light-grey text-white py-5">
-                <Row>
+        <footer className=" bg-footer-bg" fluid>
+            <Container className="footer-container text-white py-4">
+                <Row className="border-t border-custom-light-grey pt-3">
                     <Col>
-                        <Stack>
+                        <Stack className="flex h-full justify-center content-center">
                             <h5>Horarios</h5>
                             <div>Lunes a Sábado: 12:00 - 23:00 hrs.</div>
                             <div>Domingo: 12:00 - 22:00 hrs.</div>

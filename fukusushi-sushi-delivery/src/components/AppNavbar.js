@@ -23,7 +23,7 @@ function AppNavbar() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="#home">Carta</Nav.Link>
               <Nav.Link href="#link">Link</Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -38,8 +38,8 @@ function AppNavbar() {
               </NavDropdown>
             </Nav>
             <div>
-              <Button variant="success" className='custom-success-btn'><FaCartShopping /></Button>
-              <Button variant="secondary" className='custom-secondary-btn'><FaUserLarge /></Button>
+              <Button variant="success" className='custom-success-btn p-3'><FaCartShopping className='text-2xl' /></Button>
+              <Button variant="secondary" className='custom-secondary-btn p-3'><FaUserLarge className='text-2xl'/></Button>
             </div>
           </Navbar.Collapse>
         </Container>
