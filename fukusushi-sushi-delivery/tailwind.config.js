@@ -16,6 +16,7 @@ module.exports = {
         'btn-grey': '#6c757d',
         'btn-grey-hover': '#5c636a',
         'dark-grey': '#222222',
+        'dark-gray-hover': '#333333',
       }
     },
   },
