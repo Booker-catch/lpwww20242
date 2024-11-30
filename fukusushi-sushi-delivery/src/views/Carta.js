@@ -6,6 +6,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Tab from 'react-bootstrap/Tab';
 import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap';
+import { FaPlus } from "react-icons/fa";
 
 function Carta() {
     return (
@@ -14,7 +15,7 @@ function Carta() {
           <Tab.Container id="carta" defaultActiveKey="#cat1">
             <Row>
               <Col sm={3}>
-                <ListGroup variant="flush">
+                <ListGroup variant="flush" className='p-2.5 bg-dark-grey'>
                   <ListGroup.Item action href='#cat1' className='bg-dark-grey hover:bg-dark-grey-hover text-white'>
                     Categoria 1
                   </ListGroup.Item>
