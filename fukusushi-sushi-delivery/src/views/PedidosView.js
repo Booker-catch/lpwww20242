@@ -5,15 +5,15 @@ import HistoricalList from '../components/HistoricalList';
 // Ordenes para testear mientras
 const OrdenesFalsas = [
     { id: 1, status: 'en curso', items: [
-      { id: 1, name: 'Gyosas Premium Pollo Teriyaki', quantity: 2, price: 2990, imageUrl: '/gyosas.jpg' },
-      { id: 2, name: 'Gyosas Premium Pollo Teriyaki', quantity: 1, price: 3990, imageUrl: '/gyosas.jpg' },
+      { id: 1, name: 'Gyosas Premium Pollo Teriyaki', desc:'5 bocados', quantity: 2, price: 2990, imageUrl: '/gyosas.jpg' },
+      { id: 2, name: 'Gyosas Premium Pollo Teriyaki', desc:'5 bocados', quantity: 1, price: 3990, imageUrl: '/gyosas.jpg' },
     ]},
     { id: 2, status: 'completado', items: [
-      { id: 3, name: 'Gyosas Premium Pollo Teriyaki', quantity: 3, price: 2990, imageUrl: '/gyosas.jpg' },
-      { id: 4, name: 'Gyosas Premium Pollo Teriyaki', quantity: 1, price: 3990, imageUrl: '/gyosas.jpg' },
+      { id: 3, name: 'Gyosas Premium Pollo Teriyaki', desc:'5 bocados', quantity: 3, price: 2990, imageUrl: '/gyosas.jpg' },
+      { id: 4, name: 'Gyosas Premium Pollo Teriyaki', desc:'5 bocados', quantity: 1, price: 3990, imageUrl: '/gyosas.jpg' },
     ]},
     { id: 3, status: 'completado', items: [
-      { id: 5, name: 'Gyosas Premium Pollo Teriyaki', quantity: 1, price: 8990, imageUrl: '/gyosas.jpg' },
+      { id: 5, name: 'Gyosas Premium Pollo Teriyaki', desc:'5 bocados', quantity: 1, price: 8990, imageUrl: '/gyosas.jpg' },
     ]},
   ];
 

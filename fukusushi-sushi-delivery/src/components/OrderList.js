@@ -25,7 +25,7 @@ const OrderList = ({ title, orders, emptyMessage, onCancelOrder }) => {
                   </div>
                   <div className="flex-grow">
                     <p className="font-medium">{item.name}</p>
-                    <p className="text-sm text-gray-500">5 bocados</p>
+                    <p className="text-sm text-gray-500">{item.desc}</p>
                     <p className="text-sm text-gray-700">Cantidad: {item.quantity}</p>
                   </div>
                   <div className="flex-shrink-0 font-medium">
