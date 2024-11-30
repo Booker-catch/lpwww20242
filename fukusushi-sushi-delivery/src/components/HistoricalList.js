@@ -26,7 +26,7 @@ const HistoricalList = ({ title, orders, emptyMessage }) => {
                   <div className="flex-grow">
                     <p className="font-medium">{item.name}</p>
                     <p className="text-sm text-gray-500">{item.desc}</p>
-                    <p className="text-sm text-gray-500">Cantidad: {item.quantity}</p>
+                    <p className="text-sm text-gray-700">Cantidad: {item.quantity}</p>
                   </div>
                   <div className="flex-shrink-0 font-medium">
                     ${(item.price * item.quantity)}
