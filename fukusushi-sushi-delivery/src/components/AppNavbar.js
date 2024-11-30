@@ -10,7 +10,7 @@ import { FaCartShopping, FaUserLarge } from "react-icons/fa6";
 function AppNavbar() {
   return (
     <>
-      <Navbar className="bg-[#fbfbf3] custom-nav-bg" collapseOnSelect expand='lg'>
+      <Navbar className="bg-nav-bg" collapseOnSelect expand='lg'>
         <Container>
           <Navbar.Brand href="#home">
             <img
@@ -26,12 +26,12 @@ function AppNavbar() {
             <Nav className=" me-auto">
               <Nav.Link>
                 <Link to="/" className="no-underline text-black">
-                  Home
+                  Menú
                 </Link>
               </Nav.Link>
               <Nav.Link>
                 <Link to="/pedidos" className="no-underline text-black">
-                  Pedidos
+                  Tus Pedidos
                 </Link>
               </Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
@@ -59,8 +59,8 @@ function AppNavbar() {
               </NavDropdown>
             </Nav>
             <div>
-              <Button variant="success" className='custom-success-btn p-3'><FaCartShopping className='text-2xl' /></Button>
-              <Button variant="secondary" className='custom-secondary-btn p-3'><FaUserLarge className='text-2xl'/></Button>
+              <Button className='bg-btn-green hover:bg-btn-green-hover p-3 rounded-none border-0'><FaCartShopping className='text-2xl' /></Button>
+              <Button className='bg-btn-grey hover:bg-btn-grey-hover p-3 rounded-none border-0'><FaUserLarge className='text-2xl'/></Button>
             </div>
           </Navbar.Collapse>
         </Container>

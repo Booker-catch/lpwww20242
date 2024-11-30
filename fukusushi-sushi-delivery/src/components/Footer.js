@@ -13,7 +13,7 @@ function Footer(){
                             <div>Domingo: 12:00 - 22:00 hrs.</div>
                         </Stack>
                     </Col>
-                    <Col>
+                    <Col className="flex justify-center">
                         <Image
                             src="Fukusuke-logo.png"
                             width="120"
@@ -23,7 +23,7 @@ function Footer(){
                         />
                     </Col>
                     <Col>
-                        <Nav className="flex justify-center gap-4 text-4xl text-custom-light-grey">
+                        <Nav className="flex h-full justify-center content-center gap-4 text-4xl text-custom-light-grey">
                             <Nav.Link href="#" className="text-custom-light-grey">
                                 <FaInstagram />
                             </Nav.Link>
