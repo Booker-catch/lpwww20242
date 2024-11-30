@@ -20,7 +20,7 @@
 
 .custom-nav-bg {
   --bs-bg-opacity: 1;
-  background-color: rgb(190, 177, 158) !important;
+  background-color: #fffff5 !important;
 }
 
 .btn.btn-success.custom-success-btn {
@@ -44,7 +44,7 @@
   border-radius: 0;
 }
 
-.container-fluid.footer-container {
+/* .container-fluid.footer-container {
   padding: 2rem 0;
   color: #FFFFFF;
-}
+} */

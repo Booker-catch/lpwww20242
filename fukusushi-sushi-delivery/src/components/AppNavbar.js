@@ -13,9 +13,9 @@ function AppNavbar() {
         <Container>
           <Navbar.Brand href="#home">
             <img
-              src="/img/logo.svg"
-              width="30"
-              height="30"
+              src="fukusuke-logo2.png"
+              width="120"
+              height="100"
               className="d-inline-block align-top"
               alt="logo"
             />

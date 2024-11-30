@@ -13,7 +13,7 @@ function App() {
           <div class="col">
             Column
           </div>
-          <div class="col">
+          <div class="col h-screen">
             Column
           </div>
           <div class="col">
