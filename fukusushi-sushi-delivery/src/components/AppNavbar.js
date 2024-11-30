@@ -9,7 +9,7 @@ import { FaCartShopping, FaUserLarge } from "react-icons/fa6";
 function AppNavbar() {
   return (
     <>
-      <Navbar className="custom-nav-bg" collapseOnSelect expand='lg'>
+      <Navbar className="bg-[#fbfbf3] custom-nav-bg" collapseOnSelect expand='lg'>
         <Container>
           <Navbar.Brand href="#home">
             <img
