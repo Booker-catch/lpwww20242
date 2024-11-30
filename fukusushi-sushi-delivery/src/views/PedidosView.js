@@ -33,7 +33,7 @@ const OrdenesFalsas = [
     };
   
     return (
-      <div className="bg-[#151515] min-h-screen flex justify-center p-10 md:p-15">
+      <div className="bg-primary-color min-h-screen flex justify-center p-10 md:p-15">
         <div className="w-full max-w-none rounded-lg flex flex-col space-y-8">
           <div className="container mx-auto px-4 py-8">
             <OrderList 
