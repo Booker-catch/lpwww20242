@@ -12,7 +12,7 @@ function AppNavbar() {
     <>
       <Navbar className="bg-nav-bg" collapseOnSelect expand='lg'>
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">
             <img
               src="fukusuke-logo2.png"
               width="120"

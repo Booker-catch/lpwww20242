@@ -14,7 +14,8 @@ module.exports = {
         'btn-green': "#75CE7F",
         'btn-green-hover': '#66b06e',
         'btn-grey': '#6c757d',
-        'btn-grey-hover': '#5c636a'
+        'btn-grey-hover': '#5c636a',
+        'dark-grey': '#222222',
       }
     },
   },

@@ -6,21 +6,8 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="App bg-primary-color">
+    <div className="bg-primary-color">
       <AppNavbar></AppNavbar>
-      <div class="container text-center">
-        <div class="row">
-          <div class="col">
-            Column
-          </div>
-          <div class="col h-screen">
-            Column
-          </div>
-          <div class="col">
-            Column
-          </div>
-        </div>
-      </div>
       <Footer></Footer>
     </div>
   );

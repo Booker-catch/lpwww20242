@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './layouts/layout';
-import IndexView from './views/IndexView';
+import Carta from './views/Carta';
 import PedidosView from './views/PedidosView';
 
 export default function AppRouter() {
@@ -8,7 +8,7 @@ export default function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<IndexView />} index />
+          <Route path="/" element={<Carta />} index />
           <Route path="/pedidos" element={<PedidosView />} index />
         </Route>
       </Routes>
