@@ -4,13 +4,12 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
-
-// import { Link } from 'react-router-dom';
+import { FaCartShopping, FaUserLarge } from "react-icons/fa6";
 
 function AppNavbar() {
   return (
     <>
-      <Navbar className="bg-body-tertiary">
+      <Navbar className="custom-nav-bg" collapseOnSelect expand='lg'>
         <Container>
           <Navbar.Brand href="#home">
             <img
@@ -38,11 +37,11 @@ function AppNavbar() {
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
+            <div>
+              <Button variant="success" className='custom-success-btn'><FaCartShopping /></Button>
+              <Button variant="secondary" className='custom-secondary-btn'><FaUserLarge /></Button>
+            </div>
           </Navbar.Collapse>
-          <div>
-            <Button variant="success">Cart</Button>
-            <Button variant="secondary">User</Button>
-          </div>
         </Container>
       </Navbar>
     </>

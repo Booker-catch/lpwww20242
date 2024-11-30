@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import AppNavbar from './components/AppNavbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AppNavbar from './components/AppNavbar';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 }
