@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -6,62 +7,148 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Tab from 'react-bootstrap/Tab';
 import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap';
-import { FaPlus } from "react-icons/fa";
+
+
+const ENDPOINT = "http://localhost:4000";
+
+const GET_PRODUCTS_BY_CATEGORY = `
+  query ProductsByCategory($category: String!) {
+    ProductsByCategory(category: $category) {
+      name
+      price
+      description
+      imageUrl
+    }
+  }`
 
 function Carta() {
-    return (
-      <div className='bg-primary-color'>
-        <Container className='py-5'>
-          <Tab.Container id="carta" defaultActiveKey="#cat1">
-            <Row>
-              <Col sm={3}>
-                <ListGroup variant="flush" className='p-2.5 bg-dark-grey'>
-                  <ListGroup.Item action href='#cat1' className='bg-dark-grey hover:bg-dark-grey-hover text-white'>
-                    Categoria 1
+  const [selectedCategory, setSelectedCategory] = useState("Promociones");
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const categories = [
+    'Promociones', 'Hand Rolls', 'Hosomaki y Gyosas', 
+    'Sashimi', 'Niguiri', 'Chirasi', 'Yakimeshi', 
+    'Yakisoba', 'Extras', 'Para compartir', 'Líquidos'
+  ]
+
+  useEffect(() => {
+
+    const fetchProductsBody = {
+      query: GET_PRODUCTS_BY_CATEGORY,
+      variables: {  
+        "category": selectedCategory,
+      },
+    };
+
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(ENDPOINT, {
+          method: "POST",
+          body: JSON.stringify(fetchProductsBody),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        if (data.errors) {
+          setError(data.errors[0].message);
+        } else {
+          setProducts(data.data.ProductsByCategory || []); // revisar campo
+        }
+      } catch (error) {
+        setError('Error fetching data');
+      } finally {
+        setLoading(false)
+      }
+    };
+
+    fetchProducts();
+  }, [selectedCategory]);
+
+  if (loading) {
+    return <div>Loading...</div>;  // Puedes mostrar algo mientras se cargan los productos
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;  // Muestra un mensaje de error si ocurre un problema
+  }
+
+
+  return (
+    <div className='bg-primary-color'>
+      <Container className='py-5'>
+        <Tab.Container id="carta" defaultActiveKey="#promociones">
+          <Row>
+            <Col sm={3}>
+              <ListGroup variant="flush" className='p-2.5 bg-dark-grey'>
+                {categories.map((category) => (
+                  <ListGroup.Item
+                    key={category}
+                    action
+                    href={`#${category.toLowerCase().replace(" ", "")}`}
+                    className='bg-dark-grey hover:bg-dark-grey-hover text-white'
+                    onClick={() => setSelectedCategory(category)}
+                  >
+                    {category}
                   </ListGroup.Item>
-                  <ListGroup.Item action href='#cat2' className='bg-dark-grey hover:bg-dark-grey-hover text-white'>
-                    Categoria 2
-                  </ListGroup.Item>
-                  <ListGroup.Item action href='#cat3' className='bg-dark-grey hover:bg-dark-grey-hover text-white'>
-                    Categoria 3
-                  </ListGroup.Item>
-                  <ListGroup.Item action href='#cat4' className='bg-dark-grey hover:bg-dark-grey-hover text-white'>
-                    Categoria 4
-                  </ListGroup.Item>
-                </ListGroup>
-              </Col>
-              <Col>
-                <Tab.Content className='text-white'>
-                  <Tab.Pane eventKey="#cat1">
-                    <Row xs={1} md={3} className="g-4">
-                      {Array.from({ length: 5 }).map((_, idx) => (
-                        <Col key={idx} className='flex justify-center'>
-                          <Card className='bg-dark-grey max-w-60 text-white'>
-                            <Card.Img variant="top" src="gyosas.jpg" />
-                            <Card.Body>
-                              <Card.Title>Gyosas Premium Pollo Teriyaki</Card.Title>
-                              <Card.Text>
-                                5 Bocados
-                              </Card.Text>
-                              <div className='flex w-full justify-center'>
-                                <Button className='bg-btn-green hover:bg-btn-green-hover border-0'>+ $4.990</Button>
-                              </div>
-                            </Card.Body>
-                          </Card>
-                        </Col>
-                      ))}
-                    </Row>
-                  </Tab.Pane>
-                  <Tab.Pane eventKey="#cat2">Elementos categoria 2</Tab.Pane>
-                  <Tab.Pane eventKey="#cat3">Elementos categoria 3</Tab.Pane>
-                  <Tab.Pane eventKey="#cat4">Elementos categoria 4</Tab.Pane>
-                </Tab.Content>
-              </Col>
-            </Row>
-          </Tab.Container>
-        </Container>
-      </div>
-    );
+                ))}
+                {/* <ListGroup.Item 
+                  action 
+                  href='#handrolls' 
+                  className='bg-dark-grey hover:bg-dark-grey-hover text-white'
+                  onClick={() => setSelectedCategory("Hand Rolls")}
+                  >
+                  Hand Rolls
+                </ListGroup.Item>
+                <ListGroup.Item 
+                  action 
+                  href='#cat3' 
+                  className='bg-dark-grey hover:bg-dark-grey-hover text-white'
+                  onClick={() => setSelectedCategory("Hosomaki y Gyosas")}
+                  >
+                  Hosomaki y Gyosas
+                </ListGroup.Item>
+                <ListGroup.Item 
+                  action 
+                  href='#cat4' 
+                  className='bg-dark-grey hover:bg-dark-grey-hover text-white'
+                  onClick={() => setSelectedCategory("Sashimi")}
+                  >
+                  Sashimi
+                </ListGroup.Item> */}
+              </ListGroup>
+            </Col>
+            <Col>
+              <Tab.Content className='text-white'>
+                <Tab.Pane eventKey={`#${selectedCategory.toLowerCase().replace(" ", "")}`}>
+                  <Row xs={1} md={3} className="g-4">
+                    {products.map((product, idx) => (
+                      <Col key={idx} className='flex justify-center'>
+                        <Card className='bg-dark-grey max-w-60 text-white'>
+                          <Card.Img variant="top" src="gyosas.jpg" />
+                          <Card.Body>
+                            <Card.Title>{product.name}</Card.Title>
+                            <Card.Text>{product.description}</Card.Text>
+                            <div className='flex w-full justify-center'>
+                              <Button className='bg-btn-green hover:bg-btn-green-hover border-0'>
+                                + ${product.price}
+                              </Button>
+                            </div>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    ))}
+                  </Row>
+                </Tab.Pane>
+              </Tab.Content>
+            </Col>
+          </Row>
+        </Tab.Container>
+      </Container>
+    </div>
+  );
 }
 
 export default Carta;
