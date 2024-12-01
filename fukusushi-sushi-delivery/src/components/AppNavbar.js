@@ -12,10 +12,7 @@ import Form from 'react-bootstrap/Form';
 import "./styles.css"; 
 import ListGroup from 'react-bootstrap/ListGroup';
 
-
-
-
-
+const ENDPOINT = "http://localhost:4000";
 
 
 
@@ -32,7 +29,78 @@ function AppNavbar() {
   const handleCartClose = () => setCart(false)
   const handleCartOpen = () => setCart(true)
   
+  const [signUpEmail, setSignUpEmail] = useState("");
+  const [signUpPassword, setSignUpPassword] = useState("");
+  const [signUpConfirmPassword, setSignUpConfirmPassword] = useState("");
+  const [signUpContactNumber, setSignUpContactNumber] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
+  const handleConfirmPasswordChange = (e) => {
+    const confirmPassword = e.target.value;
+    setSignUpConfirmPassword(confirmPassword);
+  
+    if (signUpPassword !== confirmPassword) {
+      setPasswordError("Las contraseñas no coinciden.");
+    } else {
+      setPasswordError(""); // No hay error
+    }
+  };
+  
+
+  const handleRegister = () => {
+    console.log(signUpEmail, signUpPassword, signUpConfirmPassword, signUpContactNumber);
+    if (!signUpEmail || !signUpPassword || !signUpConfirmPassword || !signUpContactNumber) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+  
+    if (signUpPassword !== signUpConfirmPassword) {
+      alert("Las contraseñas no coinciden.");
+      setPasswordError("Las contraseñas no coinciden.");
+      return;
+    }
+  
+    const signUpRequestBody = {
+      query: `
+        mutation AddUser($email: String!, $password: String!, $contactNumber: String!) {
+          addUser(email: $email, password: $password, contactNumber: $contactNumber) {
+            id
+            email
+            password
+            contactNumber
+          }
+        }
+      `,
+      variables: {  
+        "email": signUpEmail,
+        "password": signUpPassword,
+        "contactNumber": signUpContactNumber
+      },
+    };
+    
+    // Fetch addUser (signUp)
+    fetch(ENDPOINT, {
+      method: "POST",
+      body: JSON.stringify(signUpRequestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.errors) {
+          console.error("Error:", data.errors[0].message);
+        }
+        if (data && data.data && data.data.addUser) {
+          console.log(data.data.addUser);
+        }
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+
+  };
+  
 
   const [cartItems, setCartItems] = useState([
     { id: 1, name: 'Amongus', quantity: 2 , price : 1000},
@@ -171,23 +239,44 @@ function AppNavbar() {
           <Form>
             <Form.Group className="mb-3" controlId="formEmail">
               <Form.Label>Correo electrónico</Form.Label>
-              <Form.Control type="email" placeholder="Ingresa tu correo eléctrónico" />
+              <Form.Control
+                type="email"
+                placeholder="Ingresa tu correo electrónico"
+                value={signUpEmail}
+                onChange={(e) => setSignUpEmail(e.target.value)}
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formPassword">
               <Form.Label>Contraseña</Form.Label>
-              <Form.Control type="password" placeholder="Ingresa tu contraseña" />
+              <Form.Control
+                type="password"
+                placeholder="Ingresa tu contraseña"
+                value={signUpPassword}
+                onChange={(e) => setSignUpPassword(e.target.value)}
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formPassword">
               <Form.Label>Repetir Contraseña</Form.Label>
-              <Form.Control type="password" placeholder="Repite tu contraseña" />
+              <Form.Control
+                type="password"
+                placeholder="Repite tu contraseña"
+                value={signUpConfirmPassword}
+                onChange={handleConfirmPasswordChange}
+                isInvalid={!!passwordError} // Agrega estilo de error si existe un mensaje
+              />
             </Form.Group>
 
 
             <Form.Group className="mb-3" controlId="formPassword">
               <Form.Label>Teléfono celular</Form.Label>
-              <Form.Control type="password" placeholder="+56" />
+              <Form.Control
+                type="text"
+                placeholder="+56"
+                value={signUpContactNumber}
+                onChange={(e) => setSignUpContactNumber(e.target.value)}
+              />
             </Form.Group>
 
 
@@ -198,7 +287,7 @@ function AppNavbar() {
           <Button variant="secondary" onClick={handleSignClose}>
             Cerrar
           </Button>
-          <Button variant="primary">
+          <Button variant="primary" onClick={handleRegister}>
             Registrarse
           </Button>
         </Modal.Footer>
