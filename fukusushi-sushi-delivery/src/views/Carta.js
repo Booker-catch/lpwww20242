@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Tab from 'react-bootstrap/Tab';
 import Card from 'react-bootstrap/Card';
-import { Button } from 'react-bootstrap';
+import { Button, Collapse } from 'react-bootstrap';
 import { useCart } from '../components/AppContext';
 
 const ENDPOINT = "http://localhost:4000";
@@ -29,7 +29,7 @@ function Carta() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [cart, setCart] = useState([]);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const categories = [
     'Promociones', 'Hand Rolls', 'Hosomaki y Gyosas', 
@@ -71,6 +71,24 @@ function Carta() {
     fetchProducts();
   }, [selectedCategory]);
 
+   // Manejar cambios de tamaño de pantalla
+   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsCollapsed(false); // Mostrar lista en pantallas grandes
+      }
+    };
+
+    // Añadir listener para cambios de tamaño
+    window.addEventListener('resize', handleResize);
+
+    // Configuración inicial al cargar el componente
+    handleResize();
+
+    // Limpiar el listener al desmontar el componente
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   if (loading) {
     return <div>Loading...</div>;  // Puedes mostrar algo mientras se cargan los productos
   }
@@ -84,26 +102,36 @@ function Carta() {
     <div className='bg-primary-color'>
       <Container className='py-5'>
         <Tab.Container id="carta" defaultActiveKey="#promociones">
-          <Row>
-            <Col sm={3}>
-              <ListGroup variant="flush" className='p-2.5 bg-dark-grey'>
-                {categories.map((category) => (
-                  <ListGroup.Item
-                    key={category}
-                    action
-                    href={`#${category.toLowerCase().replace(" ", "")}`}
-                    className='bg-dark-grey hover:bg-dark-grey-hover text-white'
-                    onClick={() => setSelectedCategory(category)}
-                  >
-                    {category}
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
+          <Row className='flex-md-row flex-column'>
+            <Col sm={12} md={4} lg={3} className="mb-3 mb-md-0 flex justify-center flex-col md:justify-start">
+              <Button
+                className="d-md-none mb-3 bg-dark-grey text-white"
+                onClick={() => setIsCollapsed(!isCollapsed)}
+                aria-controls="category-list"
+                aria-expanded={!isCollapsed}
+              >
+              {isCollapsed ? 'Mostrar Categorías' : 'Ocultar Categorías'}
+              </Button>
+              <Collapse in={!isCollapsed}>
+                <ListGroup variant="flush" className='p-2.5 bg-dark-grey'>
+                  {categories.map((category) => (
+                    <ListGroup.Item
+                      key={category}
+                      action
+                      href={`#${category.toLowerCase().replace(" ", "")}`}
+                      className='bg-dark-grey hover:bg-dark-grey-hover text-white'
+                      onClick={() => setSelectedCategory(category)}
+                    >
+                      {category}
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </Collapse>
             </Col>
             <Col>
               <Tab.Content className='text-white'>
                 <Tab.Pane eventKey={`#${selectedCategory.toLowerCase().replace(" ", "")}`}>
-                  <Row xs={1} md={3} className="g-4">
+                  <Row xs={1} md={2} lg={3} className="g-4">
                     {products.map((product, idx) => (
                       <Col key={idx} className='flex justify-center'>
                         <Card className='bg-dark-grey max-w-60 text-white'>

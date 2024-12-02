@@ -67,6 +67,7 @@ function AppNavbar() {
     localStorage.removeItem('authToken');
     alert("Sesión cerrada");
     setIsLoggedIn(false);
+    window.location.reload();
   };
 
   const handleConfirmPasswordChange = (e) => {
@@ -129,6 +130,7 @@ function AppNavbar() {
             setIsLoggedIn(true);
             setShow(false); // Cierra el modal de login
             alert("Inicio de sesión exitoso");
+            window.location.reload();
           }
         }
       })
@@ -237,7 +239,7 @@ function AppNavbar() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="me-auto text-center lg:text-left">
             <Nav.Link as={Link} to="/">
                 Menú
             </Nav.Link>
@@ -247,7 +249,7 @@ function AppNavbar() {
           </Nav>
 
           {/* Botones de la derecha */}
-          <div className="d-flex align-items-center gap-2"> 
+          <div className="d-flex mt-2 align-items-center justify-center lg:justify-start gap-2"> 
 
             {isLoggedIn ? <h5>{userData}</h5> : null}
             {/* Boton del carrito */}
