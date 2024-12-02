@@ -85,7 +85,7 @@ function Carta() {
       <Container className='py-5'>
         <Tab.Container id="carta" defaultActiveKey="#promociones">
           <Row>
-            <Col sm={3}>
+            <Col sm={4} lg={3}>
               <ListGroup variant="flush" className='p-2.5 bg-dark-grey'>
                 {categories.map((category) => (
                   <ListGroup.Item
@@ -103,7 +103,7 @@ function Carta() {
             <Col>
               <Tab.Content className='text-white'>
                 <Tab.Pane eventKey={`#${selectedCategory.toLowerCase().replace(" ", "")}`}>
-                  <Row xs={1} md={3} className="g-4">
+                  <Row xs={1} md={2} lg={3} className="g-4">
                     {products.map((product, idx) => (
                       <Col key={idx} className='flex justify-center'>
                         <Card className='bg-dark-grey max-w-60 text-white'>
