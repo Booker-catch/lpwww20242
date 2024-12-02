@@ -1,15 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { CartProvider } from './components/AppContext';
 import AppNavbar from './components/AppNavbar';
 import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="bg-primary-color">
-      <AppNavbar></AppNavbar>
-      <Footer></Footer>
-    </div>
+      <div className="bg-primary-color">
+        <AppNavbar></AppNavbar>
+        <Footer></Footer>
+      </div>
   );
 }
 

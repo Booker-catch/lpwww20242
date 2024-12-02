@@ -7,7 +7,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Tab from 'react-bootstrap/Tab';
 import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap';
-
+import { useCart } from '../components/AppContext';
 
 const ENDPOINT = "http://localhost:4000";
 
@@ -22,10 +22,13 @@ const GET_PRODUCTS_BY_CATEGORY = `
   }`
 
 function Carta() {
+  const { addToCart } = useCart();
+
   const [selectedCategory, setSelectedCategory] = useState("Promociones");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [cart, setCart] = useState([]);
 
   const categories = [
     'Promociones', 'Hand Rolls', 'Hosomaki y Gyosas', 
@@ -67,6 +70,10 @@ function Carta() {
     fetchProducts();
   }, [selectedCategory]);
 
+  // const addToCart = (product) => {
+  //   setCart()
+  // };
+
   if (loading) {
     return <div>Loading...</div>;  // Puedes mostrar algo mientras se cargan los productos
   }
@@ -94,30 +101,6 @@ function Carta() {
                     {category}
                   </ListGroup.Item>
                 ))}
-                {/* <ListGroup.Item 
-                  action 
-                  href='#handrolls' 
-                  className='bg-dark-grey hover:bg-dark-grey-hover text-white'
-                  onClick={() => setSelectedCategory("Hand Rolls")}
-                  >
-                  Hand Rolls
-                </ListGroup.Item>
-                <ListGroup.Item 
-                  action 
-                  href='#cat3' 
-                  className='bg-dark-grey hover:bg-dark-grey-hover text-white'
-                  onClick={() => setSelectedCategory("Hosomaki y Gyosas")}
-                  >
-                  Hosomaki y Gyosas
-                </ListGroup.Item>
-                <ListGroup.Item 
-                  action 
-                  href='#cat4' 
-                  className='bg-dark-grey hover:bg-dark-grey-hover text-white'
-                  onClick={() => setSelectedCategory("Sashimi")}
-                  >
-                  Sashimi
-                </ListGroup.Item> */}
               </ListGroup>
             </Col>
             <Col>
@@ -132,7 +115,10 @@ function Carta() {
                             <Card.Title>{product.name}</Card.Title>
                             <Card.Text>{product.description}</Card.Text>
                             <div className='flex w-full justify-center'>
-                              <Button className='bg-btn-green hover:bg-btn-green-hover border-0'>
+                              <Button 
+                                className='bg-btn-green hover:bg-btn-green-hover border-0'
+                                onClick={() => addToCart(product)}
+                                >
                                 + ${product.price}
                               </Button>
                             </div>

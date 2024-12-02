@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import AppRouter from './router';
 import reportWebVitals from './reportWebVitals';
+import { CartProvider } from './components/AppContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AppRouter />
+    <CartProvider>
+      <AppRouter />
+    </CartProvider>
   </React.StrictMode>
 );
 

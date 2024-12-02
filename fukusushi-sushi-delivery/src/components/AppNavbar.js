@@ -1,9 +1,9 @@
+import { useCart } from './AppContext';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
-import Stack from 'react-bootstrap/Stack';
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { FaCartShopping, FaUserLarge } from "react-icons/fa6";
 import { useState } from 'react';
@@ -21,13 +21,16 @@ const ENDPOINT = "http://localhost:4000";
 function AppNavbar() {
   const [show, setShow] = useState(false);
   const [showsign, setSign] = useState(false)
-  const [showcart, setCart] = useState(false)
   const handleSignClose = () => setSign(false)
   const handleSignOpen = () => setSign(true)
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleCartClose = () => setCart(false)
-  const handleCartOpen = () => setCart(true)
+
+
+  const [showcart, setCart] = useState(false);
+  const {cartItems, setCartItems, updateQuantity, totalPrice} = useCart();
+  const handleCartClose = () => setCart(false);
+  const handleCartOpen = () => setCart(true);
   
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
@@ -102,32 +105,45 @@ function AppNavbar() {
   };
   
 
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: 'Amongus', quantity: 2 , price : 1000},
-    { id: 2, name: 'Zabloingsus', quantity: 5, price : 1000 },
-    { id: 3, name: 'Penembus', quantity: 1,price : 1000 },
-    { id: 4, name: 'asdsa', quantity: 1, price : 1000 },
-    { id: 5, name: 'Youl fone ringing', quantity: 10 ,  price : 1000},
-  ]);
+  // const [cartItems, setCartItems] = useState([
+  //   { id: 1, name: 'Amongus', quantity: 2 , price : 1000},
+  //   { id: 2, name: 'Zabloingsus', quantity: 5, price : 1000 },
+  //   { id: 3, name: 'Penembus', quantity: 1,price : 1000 },
+  //   { id: 4, name: 'asdsa', quantity: 1, price : 1000 },
+  //   { id: 5, name: 'Youl fone ringing', quantity: 10 ,  price : 1000},
+  // ]);
+
+  // Función para agregar productos al carrito
+  // const addToCart = (product) => {
+  //   setCartItems((prevItems) => {
+  //     const existingProduct = prevItems.find(item => item.id === product.id);
+  //     if (existingProduct) {
+  //       // Si el producto ya está en el carrito, solo aumentamos la cantidad
+  //       return prevItems.map(item =>
+  //         item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+  //       );
+  //     } else {
+  //       // Si el producto no está en el carrito, lo agregamos
+  //       return [...prevItems, { ...product, quantity: 1 }];
+  //     }
+  //   });
+  // };
 
   // Function to remove an item from the cart
-  const updateQuantity = (id, change) => {
-    setCartItems((prevItems) =>
-      prevItems
-        .map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity + change } : item
-        )
-        .filter((item) => item.quantity > 0) // Remove items with quantity <= 0
-    );
-  };
+  // const updateQuantity = (id, change) => {
+  //   setCartItems((prevItems) =>
+  //     prevItems
+  //       .map((item) =>
+  //         item.id === id ? { ...item, quantity: item.quantity + change } : item
+  //       )
+  //       .filter((item) => item.quantity > 0) // Remove items with quantity <= 0
+  //   );
+  // };
 
-
-
-
-  const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.quantity * item.price,
-    0
-  );
+  // const totalPrice = cartItems.reduce(
+  //   (sum, item) => sum + item.quantity * item.price,
+  //   0
+  // );
 
 
   function cambioRegistro(){
@@ -301,6 +317,7 @@ function AppNavbar() {
       </Modal.Header>
       <Modal.Body>
         <ListGroup>
+          {console.log(cartItems)}
           {cartItems.map((item) => (
             <ListGroup.Item key={item.id} className="d-flex justify-content-between align-items-center">
               <span>
@@ -342,8 +359,6 @@ function AppNavbar() {
         </Button>
       </Modal.Footer>
     </Modal>
-      
-      
      
     </>
   );
