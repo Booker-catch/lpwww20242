@@ -393,7 +393,6 @@ function AppNavbar() {
       </Modal.Header>
       <Modal.Body>
         <ListGroup>
-          {console.log(cartItems)}
           {cartItems.map((item) => (
             <ListGroup.Item key={item.id} className="d-flex justify-content-between align-items-center">
               <span>

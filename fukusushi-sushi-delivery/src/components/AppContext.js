@@ -2,7 +2,6 @@ import React, { createContext, useState, useContext } from 'react';
 
 // Crear un contexto para el carrito
 const CartContext = createContext();
-console.log(CartContext);
 
 // Crear el proveedor del contexto
 export const CartProvider = ({ children }) => {
@@ -40,7 +39,6 @@ export const CartProvider = ({ children }) => {
             return [...prevItems, { ...product, quantity: 1 }];
           }
         });
-        console.log(cartItems);
     };
 
   return (

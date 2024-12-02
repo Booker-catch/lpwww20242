@@ -71,10 +71,6 @@ function Carta() {
     fetchProducts();
   }, [selectedCategory]);
 
-  // const addToCart = (product) => {
-  //   setCart()
-  // };
-
   if (loading) {
     return <div>Loading...</div>;  // Puedes mostrar algo mientras se cargan los productos
   }
