@@ -67,6 +67,7 @@ function AppNavbar() {
     localStorage.removeItem('authToken');
     alert("Sesión cerrada");
     setIsLoggedIn(false);
+    window.location.reload();
   };
 
   const handleConfirmPasswordChange = (e) => {
@@ -129,6 +130,7 @@ function AppNavbar() {
             setIsLoggedIn(true);
             setShow(false); // Cierra el modal de login
             alert("Inicio de sesión exitoso");
+            window.location.reload();
           }
         }
       })
