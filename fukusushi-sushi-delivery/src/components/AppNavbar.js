@@ -40,6 +40,7 @@ function AppNavbar() {
   const [signUpContactNumber, setSignUpContactNumber] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  const [loginId, setLoginId] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginUserName, setLoginUserName] = useState("");
@@ -47,17 +48,16 @@ function AppNavbar() {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      const user = token; // Decodifica el token para obtener los datos del usuario
-      setUserData(user);
+    const storedUser = JSON.parse(localStorage.getItem('authToken'));
+    if (storedUser) {
+      setUserData(storedUser.userName);
       setIsLoggedIn(true);
       setShow(false);
     }
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
+    localStorage.removeItem('authToken');
     alert("Sesión cerrada");
     setIsLoggedIn(false);
   };
@@ -83,6 +83,7 @@ function AppNavbar() {
       query: `
       query UsersByEmail($email: String!) {
         UsersByEmail(email: $email) {
+          id
           email
           userName
           password
@@ -90,6 +91,7 @@ function AppNavbar() {
       }
       `,
       variables: {  
+        "id": loginId,
         "email": loginEmail,
         "userName": loginUserName,
         "password": loginPassword,
@@ -114,8 +116,9 @@ function AppNavbar() {
             alert("La contraseña es incorrecta");
           }
           if (data.data.UsersByEmail.password === loginPassword) {
-            localStorage.setItem("authToken", data.data.UsersByEmail.userName);
-            setUserData(data.data.UsersByEmail.userName);
+            const userInfo = { id: data.data.UsersByEmail.id, userName: data.data.UsersByEmail.userName, };
+            localStorage.setItem('authToken', JSON.stringify(userInfo));
+            setUserData(userInfo.userName);
             setIsLoggedIn(true);
             setShow(false); // Cierra el modal de login
             alert("Inicio de sesión exitoso");
