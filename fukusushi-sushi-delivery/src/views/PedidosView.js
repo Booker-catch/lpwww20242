@@ -15,6 +15,7 @@ const GET_ORDERS_BY_USER = `
     }
     status
     totalAmount
+    createdAt
   }
 }`
 

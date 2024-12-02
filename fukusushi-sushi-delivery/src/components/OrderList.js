@@ -14,6 +14,15 @@ const GET_PRODUCTS_BY_ID = `
   }
 `;
 
+const formatDate = (timestamp) => {
+  const date = new Date(Number(timestamp));
+  return date.toLocaleDateString("es-ES", {
+    day: "numeric",     // Día como número (1-31)
+    month: "long",      // Mes completo (ej. "octubre")
+    year: "numeric",    // Año completo
+  });
+};
+
 const OrderList = ({ title, orders, emptyMessage, onCancelOrder }) => {
   const [productDetails, setProductDetails] = useState({});
   const [error, setError] = useState(null);
@@ -60,7 +69,7 @@ const OrderList = ({ title, orders, emptyMessage, onCancelOrder }) => {
       ) : (
         orders.map((order) => (
           <div key={order.id} className="mb-4 border-black border-b pb-4 last:border-b-0">
-            <h3 className="text-lg font-semibold mb-2">Orden #{order.id}</h3>
+            <h3 className="text-lg font-semibold mb-2">{formatDate(order.createdAt)}</h3>
             <ul className="space-y-4">
               {order.products.map((product, index) => {
                 handleFetchProduct(product.product);
@@ -72,7 +81,7 @@ const OrderList = ({ title, orders, emptyMessage, onCancelOrder }) => {
                     <div className="flex items-center space-x-4 flex-grow">
                       <div className="flex-shrink-0">
                         <Image
-                          src={productInfo?.imageUrl || '/default.jpg'}
+                          src={productInfo?.imageUrl || '/gyosas.jpg'}
                           alt={productInfo?.name || 'Producto'}
                           width={80}
                           height={80}
