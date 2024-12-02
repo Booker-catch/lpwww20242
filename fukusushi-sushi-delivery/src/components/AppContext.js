@@ -6,7 +6,9 @@ console.log(CartContext);
 
 // Crear el proveedor del contexto
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState([
+    { id: 1, name: 'Amongus', quantity: 2, price: 1000 },
+  ]);
 
   const updateQuantity = (id, change) => {
     setCartItems((prevItems) =>
@@ -25,6 +27,7 @@ export const CartProvider = ({ children }) => {
 
     // Función para agregar productos al carrito
     const addToCart = (product) => {
+        console.log(product);
         setCartItems((prevItems) => {
           const existingProduct = prevItems.find(item => item.id === product.id);
           if (existingProduct) {
@@ -37,6 +40,7 @@ export const CartProvider = ({ children }) => {
             return [...prevItems, { ...product, quantity: 1 }];
           }
         });
+        console.log(cartItems);
     };
 
   return (

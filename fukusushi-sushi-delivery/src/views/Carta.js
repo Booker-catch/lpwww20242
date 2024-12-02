@@ -14,6 +14,7 @@ const ENDPOINT = "http://localhost:4000";
 const GET_PRODUCTS_BY_CATEGORY = `
   query ProductsByCategory($category: String!) {
     ProductsByCategory(category: $category) {
+      id
       name
       price
       description
