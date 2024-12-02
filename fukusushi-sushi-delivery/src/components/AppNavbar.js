@@ -12,6 +12,9 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import "./styles.css"; 
 import ListGroup from 'react-bootstrap/ListGroup';
+import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa6";
+import { Col, Row } from 'react-bootstrap';
 
 const ENDPOINT = "http://localhost:4000";
 
@@ -277,10 +280,10 @@ function AppNavbar() {
 
     {/* Modal de inicio de sesión */}
     <Modal show={show && !isLoggedIn} onHide={() => setShow(false)} size="lg" centered>
-      <Modal.Header closeButton>
+      <Modal.Header className='bg-nav-bg' closeButton>
         <Modal.Title>Login</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className='bg-nav-bg'>
         <Form>
           <Form.Group className="mb-3" controlId="formEmail">
             <Form.Label>Correo electrónico</Form.Label>
@@ -302,14 +305,14 @@ function AppNavbar() {
           </Form.Group>
         </Form>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={() => setShow(false)}>
+      <Modal.Footer className='bg-nav-bg'>
+        {/* <Button variant="secondary" onClick={() => setShow(false)}>
           Cerrar
-        </Button>
+        </Button> */}
         <Button variant="secondary" onClick={cambioRegistro}>
             Registrarse
           </Button>
-        <Button variant="primary" onClick={handleLogin}>
+        <Button className='bg-footer-bg hover:bg-stone-700 border-footer-bg' onClick={handleLogin}>
           Iniciar sesión
         </Button>
       </Modal.Footer>
@@ -317,10 +320,10 @@ function AppNavbar() {
     
     {/* Modal de registro */}
     <Modal show={showsign} onHide={handleSignClose} size="lg" centered>
-        <Modal.Header closeButton>
+        <Modal.Header className='bg-nav-bg' closeButton>
           <Modal.Title>Registrarse</Modal.Title>
         </Modal.Header>
-        <Modal.Body  >
+        <Modal.Body className='bg-nav-bg'>
           <Form>
             <Form.Group className="mb-3" controlId="formEmail">
               <Form.Label>Correo electrónico</Form.Label>
@@ -378,61 +381,64 @@ function AppNavbar() {
             
           </Form>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className='bg-nav-bg'>
           <Button variant="secondary" onClick={cambioRegistro}>
             Cerrar
           </Button>
-          <Button variant="primary" onClick={handleRegister}>
+          <Button className='bg-footer-bg hover:bg-stone-700 border-footer-bg' onClick={handleRegister}>
             Confirmar
           </Button>
         </Modal.Footer>
       </Modal>
 
 
-
+      {/* Modal Carro */}
       <Modal show={showcart} onHide={handleCartClose} size="lg" centered>
-      <Modal.Header closeButton>
-        <Modal.Title>Carrito</Modal.Title>
+      <Modal.Header className='bg-nav-bg' closeButton>
+        <Modal.Title>Carro</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className='bg-nav-bg'>
         <ListGroup>
           {cartItems.map((item) => (
             <ListGroup.Item key={item.id} className="d-flex justify-content-between align-items-center">
-              <span>
-                {item.name} ${item.price} x {item.quantity} = ${item.quantity * item.price}
-              </span>
-              <div>
+              <Row className='w-full'>
+                <Col>{item.name} (${item.price})</Col>
+                <Col className='flex justify-center'>${item.quantity * item.price}</Col>
+                <Col className='flex justify-center'>{item.quantity}</Col>
+              <Col className='flex justify-end'>
                 <Button
-                  variant="success"
+                  
                   size="sm"
                   onClick={() => updateQuantity(item.id, 1)}
-                  className="me-2"
-                >
-                  +
+                  className="me-2 text-lg bg-btn-grey hover:bg-btn-grey-hover border-0"
+                  >
+                  <FaPlus />
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => updateQuantity(item.id, -1)}
-                >
-                  -
+                  className='text-lg'
+                  >
+                  <FaMinus />
                 </Button>
-              </div>
+              </Col>
+              </Row>
             </ListGroup.Item>
           ))}
         </ListGroup>
         <div className="mt-3">
-          <strong>Precio total del pedido: ${totalPrice}</strong>
+          <strong>Total: ${totalPrice}</strong>
         </div>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleCartClose}>
+      <Modal.Footer className='bg-nav-bg'>
+        <Button variant="outline-dark" onClick={handleCartClose}>
           Seguir comprando
         </Button>
-        <Button variant="info" disabled={cartItems.length === 0}>
+        <Button className='bg-footer-bg hover:bg-stone-700 border-footer-bg' disabled={cartItems.length === 0}>
           Retiro en tienda
         </Button>
-        <Button variant="success" disabled={cartItems.length === 0}>
+        <Button className='bg-footer-bg hover:bg-stone-700 border-footer-bg' disabled={cartItems.length === 0}>
           Pedido a domicilio
         </Button>
       </Modal.Footer>
