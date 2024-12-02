@@ -10,17 +10,12 @@ import { FaCartShopping, FaUserLarge } from "react-icons/fa6";
 import { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-// import "./styles.css"; 
 import ListGroup from 'react-bootstrap/ListGroup';
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
 import { Col, Row } from 'react-bootstrap';
 
 const ENDPOINT = "http://localhost:4000";
-
-
-
-
 
 function AppNavbar() {
   const [show, setShow] = useState(false);
@@ -53,6 +48,9 @@ function AppNavbar() {
   const [loginUserName, setLoginUserName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
+
+  //Mientras implementamos sistema de admin
+  const [isAdmin, setIsAdmin] = useState(true);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('authToken'));
@@ -279,6 +277,14 @@ function AppNavbar() {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
+                  {isAdmin ?
+                    <>
+                      <Dropdown.Item as={Link} to="/admin">
+                        Panel de Administrador
+                      </Dropdown.Item>
+                      <Dropdown.Divider />
+                    </> :
+                    <></>}
                   <Dropdown.Item as={Link} to="/pedidos">
                     Mis pedidos
                   </Dropdown.Item>
@@ -503,9 +509,6 @@ function AppNavbar() {
           </Form>
       </Modal.Body>
       <Modal.Footer className='bg-nav-bg'>
-        {/* <Button variant="secondary" onClick={() => setShow(false)}>
-          Cerrar
-        </Button> */}
         <Button variant="secondary" onClick={ carro_a_dely }>
             Atrás
           </Button>
