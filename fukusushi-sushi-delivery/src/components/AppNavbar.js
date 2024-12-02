@@ -35,6 +35,10 @@ function AppNavbar() {
   const {cartItems, setCartItems, updateQuantity, totalPrice} = useCart();
   const handleCartClose = () => setCart(false);
   const handleCartOpen = () => setCart(true);
+
+  const [showdely, setDely] = useState(false)
+  const handleDelyClose = () => setDely(false);
+  const handleDelyOpen = () => setDely(true);
   
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpUserName, setSignUpUserName] = useState("");
@@ -203,6 +207,18 @@ function AppNavbar() {
       handleShow();
       handleSignClose();
     }
+  }
+
+  function carro_a_dely(){
+    if (showcart && !showdely){
+      handleCartClose();
+      handleDelyOpen();
+    }
+    if (!showcart && showdely){
+      handleCartOpen();
+      handleDelyClose();
+    }
+
   }
   return (
     <>
@@ -438,12 +454,65 @@ function AppNavbar() {
         <Button className='bg-footer-bg hover:bg-stone-700 border-footer-bg' disabled={cartItems.length === 0}>
           Retiro en tienda
         </Button>
-        <Button className='bg-footer-bg hover:bg-stone-700 border-footer-bg' disabled={cartItems.length === 0}>
+        <Button className='bg-footer-bg hover:bg-stone-700 border-footer-bg' onClick={ carro_a_dely }  disabled={cartItems.length === 0}>
           Pedido a domicilio
         </Button>
       </Modal.Footer>
     </Modal>
-     
+    {/* Modal pedido a domicilio */}
+    <Modal show={showdely} onHide={() => setDely(false)} size="lg" centered>
+      <Modal.Header className='bg-nav-bg' closeButton>
+        <Modal.Title>Pedido a domicilio</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className='bg-nav-bg'>
+      <Form>
+            <Form.Group className="mb-3" controlId="formEmail">
+              <Form.Label>Dirección</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Irarrazaval 4112"
+                
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formUserName">
+              <Form.Label>Departamento/Numero</Form.Label>
+              <Form.Control
+                type="userName"
+                placeholder="123"
+                
+              />
+            </Form.Group>
+
+
+            <Form.Group className="mb-3" controlId="formUserName">
+              <Form.Label>Instrucciones especiales</Form.Label>
+              <Form.Control
+                type="userName"
+                placeholder="No pepinillos"
+                
+              />
+            </Form.Group>
+
+
+
+
+            
+          </Form>
+      </Modal.Body>
+      <Modal.Footer className='bg-nav-bg'>
+        {/* <Button variant="secondary" onClick={() => setShow(false)}>
+          Cerrar
+        </Button> */}
+        <Button variant="secondary" onClick={ carro_a_dely }>
+            Atrás
+          </Button>
+        <Button className='bg-footer-bg hover:bg-stone-700 border-footer-bg' >
+          Confirmar pedido
+        </Button>
+      </Modal.Footer>
+    </Modal>
+
     </>
   );
 }
