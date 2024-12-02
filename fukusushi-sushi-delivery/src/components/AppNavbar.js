@@ -10,7 +10,7 @@ import { FaCartShopping, FaUserLarge } from "react-icons/fa6";
 import { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import "./styles.css"; 
+// import "./styles.css"; 
 import ListGroup from 'react-bootstrap/ListGroup';
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
