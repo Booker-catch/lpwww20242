@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Line } from 'react-chartjs-2';
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -256,11 +258,21 @@ const WebSocketView = () => {
 
   return (
     <div className="container bg-primary-color text-white min-vh-100 d-flex flex-column align-items-center">
-      <h1 className="text-center mt-4">
-        {isConnected
-          ? "Conectado a sensor de temperatura"
-          : "Sensor no disponible, los datos están siendo simulados"}
-      </h1>
+      <div className='flex w-full'>
+        <Button 
+          variant="link" 
+          className=' text-white align-self-end'
+          as={Link}
+          to="/admin"
+          >
+            Volver
+          </Button>
+        <h1 className="text-center w-full mt-4">
+          {isConnected
+            ? "Conectado a sensor de temperatura"
+            : "Sensor no disponible, los datos están siendo simulados"}
+        </h1>
+      </div>
       {!isConnected && (
         <div className="text-center mt-2" style={{ color: '#4c4c4c', display: 'flex', alignItems: 'center' }}>
           <h3 className="mb-0" style={{ marginRight: '10px' }}>{"Esperando reconexión"}</h3>
