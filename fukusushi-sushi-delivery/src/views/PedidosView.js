@@ -19,6 +19,10 @@ const GET_ORDERS_BY_USER = `
   }
 }`
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const PedidosView = () => {
   const [userId, setUserId] = useState(false);
   const [userData, setUserData] = useState(null);
@@ -32,6 +36,7 @@ const PedidosView = () => {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('authToken'));
     if (storedUser) {
+      
       setUserData(storedUser.userName);
       setUserId(storedUser.id);
     }
@@ -67,7 +72,7 @@ const PedidosView = () => {
         setLoading(false)
       }
     };
-
+    
     fetchOrders();
   }, [userId]);
 

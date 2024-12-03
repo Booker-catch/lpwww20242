@@ -62,15 +62,18 @@ function AppNavbar() {
 
   //Mientras implementamos sistema de admin
   const [isAdmin, setIsAdmin] = useState(false);
-
+  const [userId, setUserId] = useState(false)
+  
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('authToken'));
     const isAdminStored = JSON.parse(localStorage.getItem('admin'));
     if (storedUser) {
+      setUserId(storedUser.id)
       setUserData(storedUser.userName);
       setIsLoggedIn(true);
       setIsAdmin(isAdminStored);
       setShow(false);
+      
     }
   }, []);
 
@@ -80,6 +83,69 @@ function AppNavbar() {
     setIsLoggedIn(false);
     window.location.reload();
   };
+
+  
+
+  const handleCart = () => {
+
+    
+     
+    
+
+    const cartPostBody = {
+      query: `mutation AddOrder($user: ID!, $products: [OrderProductInput!]!, $totalAmount: Float!, $address: AddressInput!, $status: String!) {
+        addOrder(user: $user, products: $products, totalAmount: $totalAmount, address: $address, status: $status) {
+          id
+        }
+      }`,
+      variables: {
+        user: userId,
+        products: {product : "64b15f2e8397a627342c2300",
+          quantity: 10
+        },
+        totalAmount: totalPrice,
+        address: {
+          comuna: "DummyComuna",
+          calle: "DummyCalle",
+          numero: "123",        
+        },
+        status : "In Progress"
+      },
+    };
+  
+    // Fetch addUser (signUp)
+    fetch(ENDPOINT, {
+      method: "POST",
+      body: JSON.stringify(cartPostBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      
+      .then((data) => {
+        if (data.errors) {
+          console.error("Error:", data.errors[0].message);
+        }
+        if (data && data.data && data.data.addUser) {
+          console.log(data.data.addUser);
+          alert("Registro completado");
+          
+        }
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  };
+
+
+
+
+
+
+
+
+
+
 
   const handleConfirmPasswordChange = (e) => {
     const confirmPassword = e.target.value;
@@ -536,7 +602,7 @@ function AppNavbar() {
         <Button variant="secondary" onClick={ carro_a_dely }>
             Atrás
           </Button>
-        <Button className='bg-footer-bg hover:bg-stone-700 border-footer-bg' >
+        <Button className='bg-footer-bg hover:bg-stone-700 border-footer-bg' onClick={ handleCart }>
           Confirmar pedido
         </Button>
       </Modal.Footer>
