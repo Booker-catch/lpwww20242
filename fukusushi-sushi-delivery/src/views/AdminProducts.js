@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Tab, Card, ListGroup, Modal, Form} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Container, Row, Col, Tab, Card, ListGroup, Modal, Form } from 'react-bootstrap';
 import { Button, Collapse } from 'react-bootstrap';
 import { MdDelete, MdEdit } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
@@ -214,6 +215,14 @@ function AdminProducts() {
     <>
         <div className='bg-primary-color'>
         <Container className='py-5'>
+				<Button 
+          variant="link" 
+          className=' text-white align-self-end'
+          as={Link}
+          to="/admin"
+          >
+            Volver
+          </Button>
             <Tab.Container id="carta" defaultActiveKey="#promociones">
             <Row className='flex-md-row flex-column'>
                 <Col sm={12} md={4} lg={3} className="mb-3 mb-md-0 flex justify-center flex-col md:justify-start">

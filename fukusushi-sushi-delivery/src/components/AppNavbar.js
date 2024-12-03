@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { FaCartShopping, FaUserLarge } from "react-icons/fa6";
 import { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
@@ -43,15 +43,9 @@ function AppNavbar() {
   const [passwordError, setPasswordError] = useState("");
 
 
-
-
-
   const [cartAdress, setCartAdress] = useState("")
   const [cartNumber, setCartNumber] = useState("")
   const [cartInstruction, setCartInstrucion] = useState("")
-
-
-
 
   const [loginId, setLoginId] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
@@ -62,6 +56,8 @@ function AppNavbar() {
 
   //Mientras implementamos sistema de admin
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('authToken'));
@@ -78,7 +74,8 @@ function AppNavbar() {
     localStorage.removeItem('authToken');
     alert("Sesión cerrada");
     setIsLoggedIn(false);
-    window.location.reload();
+    // window.location.reload();
+    navigate("/");
   };
 
   const handleConfirmPasswordChange = (e) => {
@@ -308,6 +305,7 @@ function AppNavbar() {
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={handleLogout}
+                    as={Link} to="/"
                   >
                     Cerrar Sesión
                   </Dropdown.Item>

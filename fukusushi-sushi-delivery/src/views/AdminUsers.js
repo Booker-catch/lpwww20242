@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import { Modal, Button, Form } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -41,27 +42,28 @@ export default function PedidosView() {
     }
   }, [])
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch(ENDPOINT, {
-          method: "POST",
-          body: JSON.stringify({ query: GET_USERS }),
-          headers: { "Content-Type": "application/json" },
-        })
-        const data = await response.json()
-        if (data.errors) {
-          setError(data.errors[0].message)
-        } else {
-          setAdminUsers(data.data.Users || [])
-        }
-      } catch (error) {
-        setError('Error fetching data')
-      } finally {
-        setLoading(false)
-      }
-    }
 
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch(ENDPOINT, {
+        method: "POST",
+        body: JSON.stringify({ query: GET_USERS }),
+        headers: { "Content-Type": "application/json" },
+      })
+      const data = await response.json()
+      if (data.errors) {
+        setError(data.errors[0].message)
+      } else {
+        setAdminUsers(data.data.Users || [])
+      }
+    } catch (error) {
+      setError('Error fetching data')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
     fetchUsers()
   }, [userId])
 
@@ -93,17 +95,14 @@ export default function PedidosView() {
       .then((response) => response.json())
       .then((data) => {
         if (data.errors) {
-          console.error("Error:", data.errors[0].message);
-          alert("Hubo un error al cancelar la orden.");
+          // console.error("Error:", data.errors[0].message);
+          // alert("Hubo un error al cancelar la orden.");
         } else {
           alert("Usuario eliminado exitosamente");
-          window.location.reload(); // Recargar la página o actualizar el estado según sea necesario
+          // window.location.reload(); // Recargar la página o actualizar el estado según sea necesario
+          fetchUsers();
         }
       })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("Hubo un error al cancelar la orden.");
-      });
   }
 
   const handleAdd = () => {
@@ -156,6 +155,8 @@ export default function PedidosView() {
           console.log(data.data.addUser);
           alert("Registro completado");
           handleSignClose();
+          // Actualizar la lista de usuarios
+          fetchUsers(); // Llama a la función fetchUsers para obtener la lista actualizada.
         }
       })
       .catch((error) => {
@@ -230,6 +231,14 @@ export default function PedidosView() {
 
   return (
     <div className="container mt-4">
+      <Button 
+          variant="link" 
+          className=' text-white align-self-end'
+          as={Link}
+          to="/admin"
+          >
+            Volver
+      </Button>
       <div className="row justify-content-center">
         <div className="col-md-8">
           <div className="card">
