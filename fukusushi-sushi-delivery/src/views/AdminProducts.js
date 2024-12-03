@@ -26,6 +26,11 @@ const GET_PRODUCTS_BY_CATEGORY = `
     }
   }`
 
+const DELETE_PRODUCT_BY_ID = `
+mutation DeleteProduct($deleteProductId: ID!) {
+  deleteProduct(id: $deleteProductId)
+}`
+
 function AdminProducts() {
 //   const { addToCart } = useCart();
 
@@ -74,6 +79,34 @@ function AdminProducts() {
 
     fetchProducts();
   }, [selectedCategory]);
+
+  const handleDeleteProduct = async (id) => {
+    const deleteProductBody = {
+      query: DELETE_PRODUCT_BY_ID,
+      variables: { deleteProductId: id },
+    };
+
+    try {
+      const response = await fetch(ENDPOINT, {
+        method: "POST",
+        body: JSON.stringify(deleteProductBody),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+
+      if (data.errors) {
+        setError(data.errors[0].message);
+        return;
+      }
+
+      // Actualizar la lista de productos localmente tras eliminar
+      setProducts(products.filter((product) => product.id !== id));
+    } catch (error) {
+      setError("Error deleting product");
+    }
+  };
 
    // Manejar cambios de tamaño de pantalla
    useEffect(() => {
@@ -158,6 +191,7 @@ function AdminProducts() {
                                 </Button>
                                 <Button 
                                     variant="danger"
+                                    onClick={() => handleDeleteProduct(product.id)}
                                     >
                                     <MdDelete/>
                                 </Button>

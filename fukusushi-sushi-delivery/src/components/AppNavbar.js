@@ -128,7 +128,7 @@ function AppNavbar() {
             setIsLoggedIn(true);
 
             // Verifica si el correo es de dominio @fukusushi.cl
-            if (user.email.endsWith("@fukusushi.cl")) {
+            if (user.email.endsWith("@fukusuke.cl")) {
               localStorage.setItem('admin', JSON.stringify(true));
             } else{
               localStorage.setItem('admin', JSON.stringify(false));
