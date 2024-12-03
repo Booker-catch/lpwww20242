@@ -167,6 +167,8 @@ function AdminProducts() {
 			setProducts([...products, newProduct]);
 	
 			// Limpia el formulario y cierra el modal
+			console.log(tags);
+			setTags([]);
 			handleCancelAddProd();
 		} catch (error) {
 			alert("Error al conectar con el servidor.");
@@ -259,11 +261,11 @@ function AdminProducts() {
                                     >
                                     + ${product.price}
                                 </Button> */}
-                                    <Button
+                                    {/* <Button
                                         variant='secondary'
                                         >
                                         <MdEdit />
-                                    </Button>
+                                    </Button> */}
                                     <Button 
                                         variant="danger"
                                         onClick={() => handleDeleteProduct(product.id)}
