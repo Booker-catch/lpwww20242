@@ -42,6 +42,17 @@ function AppNavbar() {
   const [signUpContactNumber, setSignUpContactNumber] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+
+
+
+
+  const [cartAdress, setCartAdress] = useState("")
+  const [cartNumber, setCartNumber] = useState("")
+  const [cartInstruction, setCartInstrucion] = useState("")
+
+
+
+
   const [loginId, setLoginId] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -50,13 +61,15 @@ function AppNavbar() {
   const [userData, setUserData] = useState(null);
 
   //Mientras implementamos sistema de admin
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('authToken'));
+    const isAdminStored = JSON.parse(localStorage.getItem('admin'));
     if (storedUser) {
       setUserData(storedUser.userName);
       setIsLoggedIn(true);
+      setIsAdmin(isAdminStored);
       setShow(false);
     }
   }, []);
@@ -84,23 +97,20 @@ function AppNavbar() {
       alert("Por favor, completa todos los campos.");
       return;
     }
-
+  
     const loginRequestBody = {
       query: `
-      query UsersByEmail($email: String!) {
-        UsersByEmail(email: $email) {
-          id
-          email
-          userName
-          password
+        query UsersByEmail($email: String!) {
+          UsersByEmail(email: $email) {
+            id
+            email
+            userName
+            password
+          }
         }
-      }
       `,
       variables: {  
-        "id": loginId,
-        "email": loginEmail,
-        "userName": loginUserName,
-        "password": loginPassword,
+        email: loginEmail,
       },
     };
     
@@ -118,14 +128,22 @@ function AppNavbar() {
           console.error("Error:", data.errors[0].message);
         }
         if (data && data.data && data.data.UsersByEmail) {
-          if (data.data.UsersByEmail.password !== loginPassword) {
+          const user = data.data.UsersByEmail;
+  
+          if (user.password !== loginPassword) {
             alert("La contraseña es incorrecta");
-          }
-          if (data.data.UsersByEmail.password === loginPassword) {
-            const userInfo = { id: data.data.UsersByEmail.id, userName: data.data.UsersByEmail.userName, };
+          } else {
+            const userInfo = { id: user.id, userName: user.userName };
             localStorage.setItem('authToken', JSON.stringify(userInfo));
             setUserData(userInfo.userName);
             setIsLoggedIn(true);
+
+            // Verifica si el correo es de dominio @fukusushi.cl
+            if (user.email.endsWith("@fukusuke.cl")) {
+              localStorage.setItem('admin', JSON.stringify(true));
+            } else{
+              localStorage.setItem('admin', JSON.stringify(false));
+            }
             setShow(false); // Cierra el modal de login
             alert("Inicio de sesión exitoso");
             window.location.reload();
@@ -135,8 +153,8 @@ function AppNavbar() {
       .catch((error) => {
         console.log("Error:", error);
       });
-
   };
+  
 
   const handleRegister = () => {
     console.log(signUpEmail, signUpUserName, signUpPassword, signUpConfirmPassword, signUpContactNumber);
@@ -479,6 +497,8 @@ function AppNavbar() {
               <Form.Control
                 type="email"
                 placeholder="Irarrazaval 4112"
+                value={cartAdress}
+                onChange={(e) => setCartAdress(e.target.value)}
                 
               />
             </Form.Group>
@@ -488,6 +508,8 @@ function AppNavbar() {
               <Form.Control
                 type="userName"
                 placeholder="123"
+                value={cartNumber}
+                onChange={(e) => setCartNumber(e.target.value)}
                 
               />
             </Form.Group>
@@ -498,6 +520,8 @@ function AppNavbar() {
               <Form.Control
                 type="userName"
                 placeholder="No pepinillos"
+                value={cartInstruction}
+                onChange={(e) => setCartInstrucion(e.target.value)}
                 
               />
             </Form.Group>

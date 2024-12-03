@@ -4,6 +4,8 @@ import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Lege
 import "bootstrap/dist/css/bootstrap.min.css";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -135,7 +137,21 @@ const ReportsPanelView = () => {
   if (error) return <div className="text-white text-center">Error: {error}</div>;
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 ">
+    
+    <div className="d-flex flex-column justify-content-center align-items-center vh-100">
+      {/* Div superior con el botón Volver */}
+      <div className="top-0 left-0 p-3">
+        <Button 
+            variant="link" 
+            className="text-white"
+            as={Link}
+            to="/admin"
+        >
+            Volver
+        </Button>
+    </div>
+
+      {/* Contenido principal centrado */}
       <div className="bg-dark text-white p-4 rounded border border-white" style={{ maxWidth: "600px", width: "100%" }}>
         <h2 className="text-center">Órdenes por Fecha</h2>
         <div className="mb-3">
