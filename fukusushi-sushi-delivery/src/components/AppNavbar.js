@@ -42,6 +42,17 @@ function AppNavbar() {
   const [signUpContactNumber, setSignUpContactNumber] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+
+
+
+
+  const [cartAdress, setCartAdress] = useState("")
+  const [cartNumber, setCartNumber] = useState("")
+  const [cartInstruction, setCartInstrucion] = useState("")
+
+
+
+
   const [loginId, setLoginId] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -486,6 +497,8 @@ function AppNavbar() {
               <Form.Control
                 type="email"
                 placeholder="Irarrazaval 4112"
+                value={cartAdress}
+                onChange={(e) => setCartAdress(e.target.value)}
                 
               />
             </Form.Group>
@@ -495,6 +508,8 @@ function AppNavbar() {
               <Form.Control
                 type="userName"
                 placeholder="123"
+                value={cartNumber}
+                onChange={(e) => setCartNumber(e.target.value)}
                 
               />
             </Form.Group>
@@ -505,6 +520,8 @@ function AppNavbar() {
               <Form.Control
                 type="userName"
                 placeholder="No pepinillos"
+                value={cartInstruction}
+                onChange={(e) => setCartInstrucion(e.target.value)}
                 
               />
             </Form.Group>
