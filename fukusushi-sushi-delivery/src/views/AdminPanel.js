@@ -24,9 +24,9 @@ function AdminPanel() {
             Clientes
         </Button>
         <Button 
-          className='w-9/12 mt-8 bg-footer-bg hover:bg-stone-700 border-footer-bg'
+          className='w-9/12 mt-10 bg-footer-bg hover:bg-stone-700 border-footer-bg'
           as={Link}
-          to="/">
+          to="/reportes">
             Reportes
         </Button>
         <Button 
