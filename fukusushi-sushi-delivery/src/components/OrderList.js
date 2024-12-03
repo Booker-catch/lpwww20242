@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Image } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
 const ENDPOINT = "http://localhost:4000";
 
@@ -27,6 +28,47 @@ const OrderList = ({ title, orders, emptyMessage, onCancelOrder }) => {
   const [productDetails, setProductDetails] = useState({});
   const [error, setError] = useState(null);
 
+  const handleCancelOrder = (onDeleteOrder) => {
+    // Confirmar antes de eliminar
+    const confirmDelete = window.confirm("¿Estás seguro de que deseas cancelar esta orden?");
+    if (!confirmDelete) return;
+  
+    // Configurar el body de la petición
+    const deleteRequestBody = {
+      query: `
+      mutation DeleteOrder($deleteOrderId: ID!) {
+        deleteOrder(id: $deleteOrderId)
+      }
+      `,
+      variables: {
+        "deleteOrderId": onDeleteOrder,
+      },
+    };
+  
+    // Realizar la solicitud para borrar la orden
+    fetch(ENDPOINT, {
+      method: "POST",
+      body: JSON.stringify(deleteRequestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.errors) {
+          console.error("Error:", data.errors[0].message);
+          alert("Hubo un error al cancelar la orden.");
+        } else {
+          alert("Orden cancelada exitosamente.");
+          window.location.reload(); // Recargar la página o actualizar el estado según sea necesario
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Hubo un error al cancelar la orden.");
+      });
+  };
+  
   const fetchProductDetails = async (id) => {
     const fetchProductBody = {
       query: GET_PRODUCTS_BY_ID,
@@ -95,12 +137,12 @@ const OrderList = ({ title, orders, emptyMessage, onCancelOrder }) => {
                       </div>
                     </div>
                     {/* Botón de anular */}
-                    <button
+                    <Button
                       className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                      onClick={() => onCancelOrder(order.id)}
+                      onClick={() => handleCancelOrder(order.id)} 
                     >
                       Anular Pedido
-                    </button>
+                    </Button>
                   </li>
                 );
               })}
