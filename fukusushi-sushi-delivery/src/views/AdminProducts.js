@@ -167,7 +167,6 @@ function AdminProducts() {
 			setProducts([...products, newProduct]);
 	
 			// Limpia el formulario y cierra el modal
-			console.log(tags);
 			setTags([]);
 			handleCancelAddProd();
 		} catch (error) {

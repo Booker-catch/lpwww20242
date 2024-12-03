@@ -267,7 +267,6 @@ function AppNavbar() {
           {/* Botones de la derecha */}
           <div className="d-flex mt-2 align-items-center justify-center lg:justify-start gap-2"> 
 
-            {isLoggedIn ? <h5>{userData}</h5> : null}
             {/* Boton del carrito */}
             <Button
               className="bg-btn-green hover:bg-btn-green-hover p-3 rounded-none border-0"
@@ -295,6 +294,7 @@ function AppNavbar() {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
+                {isLoggedIn ? <h5 className='text-center'><strong>{userData}</strong></h5> : null}
                   {isAdmin ?
                     <>
                       <Dropdown.Item as={Link} to="/admin">
