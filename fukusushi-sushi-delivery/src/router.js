@@ -5,6 +5,7 @@ import PedidosView from './views/PedidosView';
 import AdminPanel from './views/AdminPanel';
 import TemperatureSensor from './views/TemperatureSensor';
 import AdminProducts from './views/AdminProducts';
+import AdminUsers from './views/AdminUsers';
 
 export default function AppRouter() {
   return (
@@ -16,6 +17,7 @@ export default function AppRouter() {
           <Route path="/sensor" element={<TemperatureSensor />} index />
           <Route path='/admin' element={<AdminPanel />} index/>
           <Route path='/productos' element={<AdminProducts />} index/>
+          <Route path='/usuarios' element={<AdminUsers />} index/>
         </Route>
       </Routes>
     </BrowserRouter>
